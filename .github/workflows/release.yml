@@ -15,15 +15,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build zip
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm install
+
+      - name: Build executables
+        run: npm run build:pkg
+
+      - name: Build source zip
         run: |
           set -euo pipefail
           mkdir -p dist
-          zip -r dist/statnerd-relay-${GITHUB_REF_NAME}.zip src package.json README.md CHANGELOG.md .gitignore
+          zip -r dist/statnerd-relay-${GITHUB_REF_NAME}-source.zip src package.json README.md CHANGELOG.md .gitignore
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
           prerelease: false
-          files: dist/statnerd-relay-${{ github.ref_name }}.zip
+          files: |
+            dist/*
+
