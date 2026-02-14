@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.0-alpha.2] - 2026-02-14
+
+### Fixed
+- Release CI now installs dev dependencies explicitly (`npm ci --include=dev`) for Windows/macOS build jobs.
+
 ## [1.1.0-alpha.1] - 2026-02-14
 
 ### Added

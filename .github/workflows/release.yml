@@ -22,7 +22,7 @@ jobs:
           cache: 'npm'
 
       - name: Install deps
-        run: npm ci
+        run: npm ci --include=dev
 
       - name: Build Windows installer
         run: npm run build:win
@@ -48,7 +48,7 @@ jobs:
           cache: 'npm'
 
       - name: Install deps
-        run: npm ci
+        run: npm ci --include=dev
 
       - name: Build macOS packages
         run: npm run build:mac

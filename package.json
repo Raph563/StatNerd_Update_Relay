@@ -1,6 +1,6 @@
 {
   "name": "statnerd-relay",
-  "version": "1.1.0-alpha.1",
+  "version": "1.1.0-alpha.2",
   "private": true,
   "description": "StatNerd desktop relay with tray and installer UI",
   "main": "src/main.js",
