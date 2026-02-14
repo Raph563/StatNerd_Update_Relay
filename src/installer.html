@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StatNerd Relay</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #111827;
+      --panel: #1f2937;
+      --panel-border: #334155;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #2563eb;
+      --ok: #16a34a;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top right, #1e293b, var(--bg));
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 22px auto;
+      padding: 0 14px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(31,41,55,.96), rgba(17,24,39,.96));
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    }
+    h1 { margin: 0 0 8px; font-size: 20px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .grid {
+      margin-top: 14px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 12px; color: var(--muted); }
+    input, select {
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: var(--text);
+      border-radius: 8px;
+      padding: 9px 10px;
+      font-size: 14px;
+    }
+    .row {
+      margin-top: 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13px;
+      background: #0f172a;
+      color: var(--text);
+      cursor: pointer;
+    }
+    button.primary { background: var(--primary); border-color: #1d4ed8; }
+    .status {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--ok);
+      min-height: 20px;
+    }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1 id="title">StatNerd Relay</h1>
+      <div class="muted" id="subtitle">Configuration locale et exécution en arrière-plan</div>
+      <div class="grid">
+        <div class="field">
+          <label id="label-port" for="port">Port local</label>
+          <input id="port" type="number" min="1024" max="65535" value="17863">
+        </div>
+        <div class="field">
+          <label id="label-lang" for="language">Langue</label>
+          <select id="language">
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="field">
+          <label id="label-repo" for="repository">Repository par défaut</label>
+          <input id="repository" type="text" value="Raph563/Grocy">
+        </div>
+        <div class="field">
+          <label id="label-root" for="localRootPath">Dossier racine local (Docker/Grocy)</label>
+          <input id="localRootPath" type="text" placeholder="C:\Users\...\Documents\Docker\grocy">
+        </div>
+      </div>
+      <div class="row">
+        <button id="toggleStartup"></button>
+        <button id="restartRelay">Redémarrer le relay</button>
+        <button id="restartApp">Redémarrer l'application</button>
+        <button class="primary" id="save">Enregistrer</button>
+      </div>
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+  <script src="./installer.js"></script>
+</body>
+</html>
+

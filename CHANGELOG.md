@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.1.0-alpha.1] - 2026-02-14
+
+### Added
+- New desktop tray mode:
+  - runs in background
+  - tray icon in status bar
+  - right-click menu with:
+    - launch at startup
+    - language (FR/EN)
+    - restart relay
+    - restart application
+- New basic installer/configuration window in app.
+- Persistent local settings (port, language, startup mode, repository, local path).
+
+### Changed
+- Relay HTTP server was modularized (`src/relay-server.js`) and reused by:
+  - CLI mode (`src/server.js`)
+  - Desktop tray app (`src/main.js`)
+- Release workflow now builds installer packages:
+  - Windows (`.exe`)
+  - macOS (`.dmg` / `.zip`)
+  - source archive
+
 ## [1.0.1] - 2026-02-14
 
 ### Added

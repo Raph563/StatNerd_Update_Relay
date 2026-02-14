@@ -9,8 +9,8 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
+  build-windows:
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,10 +22,51 @@ jobs:
           cache: 'npm'
 
       - name: Install deps
-        run: npm install
+        run: npm ci
 
-      - name: Build executables
-        run: npm run build:pkg
+      - name: Build Windows installer
+        run: npm run build:win
+
+      - name: Publish Windows assets
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          prerelease: true
+          files: |
+            dist/*.exe
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build macOS packages
+        run: npm run build:mac
+
+      - name: Publish macOS assets
+        uses: softprops/action-gh-release@v2
+        with:
+          prerelease: true
+          files: |
+            dist/*.dmg
+            dist/*-mac.zip
+            dist/*.blockmap
+
+  source-archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Build source zip
         run: |
@@ -33,11 +74,10 @@ jobs:
           mkdir -p dist
           zip -r dist/statnerd-relay-${GITHUB_REF_NAME}-source.zip src package.json README.md CHANGELOG.md .gitignore
 
-      - name: Publish release
+      - name: Publish source archive
         uses: softprops/action-gh-release@v2
         with:
-          generate_release_notes: true
-          prerelease: false
+          prerelease: true
           files: |
-            dist/*
+            dist/statnerd-relay-${GITHUB_REF_NAME}-source.zip
 

@@ -1,25 +1,52 @@
 {
   "name": "statnerd-relay",
-  "version": "1.0.1",
+  "version": "1.1.0-alpha.1",
   "private": true,
-  "description": "Desktop relay for StatNerd one-click addon updates",
+  "description": "StatNerd desktop relay with tray and installer UI",
+  "main": "src/main.js",
   "bin": {
     "statnerd-relay": "src/server.js"
   },
   "scripts": {
-    "start": "node src/server.js",
-    "build:pkg": "pkg src/server.js --targets node18-win-x64,node18-macos-x64,node18-macos-arm64 --output dist/statnerd-relay"
+    "start": "electron .",
+    "start:server": "node src/server.js",
+    "build:win": "electron-builder --win nsis portable",
+    "build:mac": "electron-builder --mac dmg zip"
   },
-  "pkg": {
-    "outputPath": "dist",
-    "targets": [
-      "node18-win-x64",
-      "node18-macos-x64",
-      "node18-macos-arm64"
-    ]
+  "build": {
+    "appId": "com.statnerd.relay",
+    "productName": "StatNerd Relay",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "README.md",
+      "CHANGELOG.md"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.utilities"
+    }
   },
   "devDependencies": {
-    "pkg": "^5.8.1"
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
   }
 }
 
