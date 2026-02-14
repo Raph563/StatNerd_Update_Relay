@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.0-alpha.3] - 2026-02-14
+
+### Fixed
+- CI build commands now disable auto-publish in `electron-builder` (`--publish never`), so GitHub Actions can build installers and upload assets via release step without `GH_TOKEN` build failure.
+
 ## [1.1.0-alpha.2] - 2026-02-14
 
 ### Fixed

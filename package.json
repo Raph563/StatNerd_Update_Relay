@@ -1,6 +1,6 @@
 {
   "name": "statnerd-relay",
-  "version": "1.1.0-alpha.2",
+  "version": "1.1.0-alpha.3",
   "private": true,
   "description": "StatNerd desktop relay with tray and installer UI",
   "main": "src/main.js",
@@ -10,8 +10,8 @@
   "scripts": {
     "start": "electron .",
     "start:server": "node src/server.js",
-    "build:win": "electron-builder --win nsis portable",
-    "build:mac": "electron-builder --mac dmg zip"
+    "build:win": "electron-builder --win nsis portable --publish never",
+    "build:mac": "electron-builder --mac dmg zip --publish never"
   },
   "build": {
     "appId": "com.statnerd.relay",
